@@ -1,0 +1,22 @@
+{
+  "name": "rs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rs — a personal finance tracker for rupee budgets",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=server & npm run dev --workspace=web",
+    "dev:server": "npm run dev --workspace=server",
+    "dev:web": "npm run dev --workspace=web",
+    "build": "npm run build --workspace=web",
+    "test": "npm run test --workspaces --if-present"
+  }
+}
