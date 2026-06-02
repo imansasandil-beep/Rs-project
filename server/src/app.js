@@ -1,4 +1,5 @@
 import express from 'express';
+import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 
 export function createApp() {
   const app = express();
@@ -8,6 +9,9 @@ export function createApp() {
   app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', uptime: Math.round(process.uptime()) });
   });
+
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
   return app;
 }
