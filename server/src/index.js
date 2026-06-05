@@ -1,5 +1,10 @@
 import { createApp } from './app.js';
 import { config } from './config/env.js';
+import { migrate } from './db/migrate.js';
+import { closeDb } from './db/connection.js';
+
+// Bring the schema up to date before the first request can hit a missing table.
+migrate();
 
 const app = createApp();
 
@@ -22,6 +27,7 @@ function shutdown(signal) {
 
   server.close((err) => {
     clearTimeout(forceExit);
+    closeDb();
     if (err) {
       console.error('[shutdown] server did not close cleanly', err);
       process.exit(1);
