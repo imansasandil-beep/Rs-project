@@ -1,4 +1,8 @@
 import { randomUUID } from 'node:crypto';
+import { config } from '../config/env.js';
+
+// A test run makes hundreds of requests; one line each buries the assertions.
+const SILENT = config.env === 'test';
 
 /**
  * Gives every request an id (echoed as `X-Request-Id`) and writes one line per
@@ -7,6 +11,8 @@ import { randomUUID } from 'node:crypto';
 export function requestLogger(req, res, next) {
   req.id = req.get('x-request-id') || randomUUID();
   res.set('X-Request-Id', req.id);
+
+  if (SILENT) return next();
 
   const startedAt = process.hrtime.bigint();
 
