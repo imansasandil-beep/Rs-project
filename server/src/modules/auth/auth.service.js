@@ -1,6 +1,9 @@
 import { hashPassword, verifyPassword, needsRehash } from '../../lib/password.js';
 import { issueToken } from '../../lib/tokens.js';
 import { conflict, unauthorized } from '../../lib/errors.js';
+import { transaction } from '../../db/connection.js';
+import { insertCategories } from '../categories/categories.repository.js';
+import { DEFAULT_CATEGORIES } from '../categories/categories.defaults.js';
 import {
   createUser,
   findUserByEmail,
@@ -22,7 +25,13 @@ export async function register({ email, name, password, currency }) {
 
   let user;
   try {
-    user = createUser({ email, name, passwordHash, currency });
+    // The account and its starter categories land together or not at all —
+    // a user with no categories cannot record a single transaction.
+    user = transaction(() => {
+      const created = createUser({ email, name, passwordHash, currency });
+      insertCategories(created.id, DEFAULT_CATEGORIES);
+      return created;
+    });
   } catch (err) {
     // Two simultaneous registrations can both pass the check above; the unique
     // index is the real arbiter, so translate its error rather than 500.
