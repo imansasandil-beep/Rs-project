@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { authRoutes } from './modules/auth/auth.routes.js';
 import { categoryRoutes } from './modules/categories/categories.routes.js';
 import { accountRoutes } from './modules/accounts/accounts.routes.js';
+import { transactionRoutes } from './modules/transactions/transactions.routes.js';
 
 /** Single place every module's router gets mounted under /api. */
 export function createRouter() {
@@ -14,6 +15,7 @@ export function createRouter() {
   router.use('/auth', authRoutes);
   router.use('/accounts', accountRoutes);
   router.use('/categories', categoryRoutes);
+  router.use('/transactions', transactionRoutes);
 
   return router;
 }
