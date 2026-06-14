@@ -17,10 +17,14 @@ import {
   updateTransactionSchema,
   createTransferSchema,
 } from './transactions.schemas.js';
+import { csvRoutes } from './transactions.csv.routes.js';
 
 const transferParam = z.object({ transferId: z.uuid('Must be a transfer id') });
 
 export const transactionRoutes = Router();
+
+// Mounted before requireAuth's siblings so the CSV router owns its own body parser.
+transactionRoutes.use('/csv', csvRoutes);
 
 transactionRoutes.use(requireAuth);
 
