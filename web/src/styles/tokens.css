@@ -1,0 +1,110 @@
+/*
+ * One source of truth for colour, spacing and type. Both themes define the same
+ * variable names, so no component ever needs to know which theme is active.
+ */
+
+:root {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  /* Tabular figures keep columns of money vertically aligned. */
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --radius-full: 999px;
+
+  --sidebar-width: 240px;
+  --header-height: 60px;
+  --content-max: 1180px;
+
+  --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-sunken: #f1f3f6;
+  --surface-hover: #f4f5f8;
+
+  --border: #e3e6eb;
+  --border-strong: #cfd4dc;
+
+  --text: #16191f;
+  --text-muted: #5f6773;
+  --text-subtle: #8b929e;
+  --text-inverse: #ffffff;
+
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-soft: #eef2ff;
+  --accent-text: #ffffff;
+
+  --positive: #047857;
+  --positive-soft: #ecfdf5;
+  --negative: #b91c1c;
+  --negative-soft: #fef2f2;
+  --warning: #b45309;
+  --warning-soft: #fffbeb;
+
+  --shadow-sm: 0 1px 2px rgb(16 24 40 / 0.05);
+  --shadow: 0 1px 3px rgb(16 24 40 / 0.1), 0 1px 2px rgb(16 24 40 / 0.06);
+  --shadow-lg: 0 12px 32px -8px rgb(16 24 40 / 0.18);
+  --overlay: rgb(15 23 42 / 0.45);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface-raised: #1c2230;
+  --surface-sunken: #0d1117;
+  --surface-hover: #212936;
+
+  --border: #262d38;
+  --border-strong: #39414f;
+
+  --text: #e8ebf0;
+  --text-muted: #9aa4b2;
+  --text-subtle: #6e7787;
+  --text-inverse: #0d1117;
+
+  --accent: #818cf8;
+  --accent-hover: #a5b4fc;
+  --accent-soft: #1e2340;
+  --accent-text: #0d1117;
+
+  --positive: #34d399;
+  --positive-soft: #0d2b22;
+  --negative: #f87171;
+  --negative-soft: #2c1517;
+  --warning: #fbbf24;
+  --warning-soft: #2b2110;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 16px 40px -12px rgb(0 0 0 / 0.6);
+  --overlay: rgb(0 0 0 / 0.65);
+}
