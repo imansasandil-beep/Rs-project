@@ -1,0 +1,116 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field__label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.field__required {
+  margin-left: 2px;
+  color: var(--negative);
+}
+
+.field__hint {
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+}
+
+.field__error {
+  font-size: var(--text-xs);
+  color: var(--negative);
+}
+
+.input {
+  width: 100%;
+  height: 38px;
+  padding: 0 var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--text);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.input::placeholder {
+  color: var(--text-subtle);
+}
+
+.input:hover:not(:disabled) {
+  border-color: var(--text-subtle);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.input:disabled {
+  background: var(--surface-sunken);
+  color: var(--text-subtle);
+  cursor: not-allowed;
+}
+
+.field--invalid .input {
+  border-color: var(--negative);
+}
+
+.field--invalid .input:focus {
+  box-shadow: 0 0 0 3px var(--negative-soft);
+}
+
+.textarea {
+  height: auto;
+  padding: var(--space-3);
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.select-wrap {
+  position: relative;
+}
+
+.select {
+  appearance: none;
+  padding-right: var(--space-6);
+  cursor: pointer;
+}
+
+.select__arrow {
+  position: absolute;
+  top: 50%;
+  right: var(--space-3);
+  width: 12px;
+  height: 12px;
+  color: var(--text-subtle);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.amount-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.amount-input__symbol {
+  position: absolute;
+  left: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-subtle);
+  pointer-events: none;
+}
+
+.amount-input__control {
+  padding-left: calc(var(--space-3) + 26px);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
