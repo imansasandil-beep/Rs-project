@@ -1,0 +1,312 @@
+.chart__empty {
+  padding: var(--space-6);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--text-subtle);
+}
+
+.chart__legend {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.chart__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ---------- Donut ---------- */
+
+.donut {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.donut__figure {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.donut__slice {
+  cursor: pointer;
+  transition:
+    opacity var(--transition),
+    stroke-width var(--transition);
+}
+
+.donut__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  pointer-events: none;
+  text-align: center;
+  padding: 0 var(--space-5);
+}
+
+.donut__center-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.donut__center-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.donut__legend {
+  flex: 1;
+  min-width: 200px;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.donut__legend-item {
+  display: grid;
+  grid-template-columns: 10px 1fr auto auto;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-2);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-sm);
+  text-align: left;
+  font-size: var(--text-sm);
+  transition: background var(--transition);
+}
+
+.donut__legend-item:hover,
+.donut__legend-item.is-active {
+  background: var(--surface-hover);
+}
+
+.donut__swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.donut__legend-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.donut__legend-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.donut__legend-share {
+  min-width: 34px;
+  text-align: right;
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+}
+
+/* ---------- Bars ---------- */
+
+.bars__plot {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  gap: var(--space-2);
+  height: 180px;
+  align-items: end;
+}
+
+.bars__group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.bars__pair {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+}
+
+.bars__bar {
+  width: 100%;
+  max-width: 16px;
+  min-height: 2px;
+  border-radius: 3px 3px 0 0;
+  transition: opacity var(--transition);
+}
+
+.bars__bar--in {
+  background: var(--positive);
+}
+
+.bars__bar--out {
+  background: var(--negative);
+}
+
+.bars__group:not(.is-active) .bars__bar {
+  opacity: 0.85;
+}
+
+.bars__label {
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+  white-space: nowrap;
+}
+
+.bars__tooltip {
+  position: absolute;
+  bottom: calc(100% + var(--space-2));
+  left: 50%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 150px;
+  padding: var(--space-3);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.bars__tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-muted);
+}
+
+.bars__tooltip-net {
+  margin-top: 2px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+  font-weight: 600;
+}
+
+.bars__tooltip-net.is-positive {
+  color: var(--positive);
+}
+.bars__tooltip-net.is-negative {
+  color: var(--negative);
+}
+
+.bars__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.bars__dot--in {
+  background: var(--positive);
+}
+
+.bars__dot--out {
+  background: var(--negative);
+}
+
+/* ---------- Sparkline and progress ---------- */
+
+.sparkline {
+  width: 100%;
+  height: 72px;
+}
+
+.sparkline--empty {
+  background: var(--surface-sunken);
+  border-radius: var(--radius);
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.progress__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.progress__label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.progress__value {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress__max {
+  color: var(--text-subtle);
+}
+
+.progress__track {
+  height: 8px;
+  background: var(--surface-sunken);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress__track--under .progress__fill {
+  background: var(--positive);
+}
+.progress__track--near .progress__fill {
+  background: var(--warning);
+}
+.progress__track--over .progress__fill {
+  background: var(--negative);
+}
+
+.progress__caption {
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+}
+
+.progress__caption--near {
+  color: var(--warning);
+}
+.progress__caption--over {
+  color: var(--negative);
+}
