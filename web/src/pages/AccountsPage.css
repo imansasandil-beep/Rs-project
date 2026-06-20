@@ -1,0 +1,131 @@
+.accounts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.accounts__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.accounts__total-label {
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.accounts__total {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.accounts__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-left: auto;
+}
+
+.accounts__toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.accounts__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+.account {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition);
+}
+
+.account:hover {
+  border-color: var(--border-strong);
+}
+
+.account.is-archived {
+  opacity: 0.65;
+  background: var(--surface-sunken);
+}
+
+.account__name {
+  font-size: var(--text-md);
+}
+
+.account__type {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: 2px;
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+}
+
+.account__badge {
+  padding: 1px var(--space-2);
+  background: var(--surface-hover);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.account__balance {
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.account__balance.is-negative {
+  color: var(--negative);
+}
+
+.account__meta {
+  font-size: var(--text-xs);
+  color: var(--text-subtle);
+}
+
+.account__actions {
+  display: flex;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.accounts__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.accounts__error {
+  padding: var(--space-3);
+  background: var(--negative-soft);
+  border: 1px solid var(--negative);
+  border-radius: var(--radius);
+  color: var(--negative);
+  font-size: var(--text-sm);
+}
