@@ -23,6 +23,7 @@ export function DashboardPage() {
   });
 
   const money = (cents) => formatMoney(cents, { currency });
+  const wholeMoney = (cents) => formatMoney(cents, { currency, whole: true });
   const data = overview.data;
 
   return (
@@ -48,26 +49,26 @@ export function DashboardPage() {
             <div className="dashboard__stats">
               <StatCard
                 label="Total balance"
-                value={money(data.totalBalance)}
+                value={wholeMoney(data.totalBalance)}
                 hint="across active accounts"
               />
               <StatCard
                 label="Money in"
-                value={money(data.income)}
+                value={wholeMoney(data.income)}
                 tone="up-good"
                 hint={formatMonth(data.previousMonth.month, { short: true })}
                 change={percentChange(data.income, data.previousMonth.income)}
               />
               <StatCard
                 label="Money out"
-                value={money(data.expenses)}
+                value={wholeMoney(data.expenses)}
                 tone="up-bad"
                 change={data.expensesChange}
                 hint={`vs ${formatMonth(data.previousMonth.month, { short: true })}`}
               />
               <StatCard
                 label="Kept this month"
-                value={money(data.net)}
+                value={wholeMoney(data.net)}
                 hint={data.savingsRate === null ? 'no income recorded' : `${data.savingsRate}% of income`}
               />
             </div>

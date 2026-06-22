@@ -28,6 +28,7 @@ export function BudgetsPage() {
   const categories = useApi('/api/categories', { query: { kind: 'expense' } });
 
   const money = (cents) => formatMoney(cents, { currency });
+  const wholeMoney = (cents) => formatMoney(cents, { currency, whole: true });
   const data = progress.data;
 
   async function save(event) {
@@ -106,11 +107,11 @@ export function BudgetsPage() {
         {data && (
           <>
             <div className="budgets__stats">
-              <StatCard label="Budgeted" value={money(data.totals.budgeted)} />
-              <StatCard label="Spent" value={money(data.totals.spent)} />
+              <StatCard label="Budgeted" value={wholeMoney(data.totals.budgeted)} />
+              <StatCard label="Spent" value={wholeMoney(data.totals.spent)} />
               <StatCard
                 label="Left to spend"
-                value={money(data.totals.remaining)}
+                value={wholeMoney(data.totals.remaining)}
                 hint={data.totals.remaining < 0 ? 'over budget' : undefined}
               />
               <StatCard

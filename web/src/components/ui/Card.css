@@ -36,6 +36,7 @@
 }
 
 .stat {
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -64,10 +65,12 @@
 
 .stat__value {
   font-family: var(--font-mono);
-  font-size: var(--text-2xl);
+  /* Shrinks on narrow cards so a large balance stays on one line. */
+  font-size: clamp(0.875rem, 13cqi, var(--text-2xl));
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .stat__meta {

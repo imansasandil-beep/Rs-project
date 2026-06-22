@@ -15,18 +15,26 @@ export function currencySymbol(currency = 'LKR') {
  * @param {string} [options.currency]
  * @param {boolean} [options.showSign]  prefix a + on positive values
  * @param {boolean} [options.compact]   1.2M instead of 1,200,000
+ * @param {boolean} [options.whole]     drop the cents — headline figures read
+ *   better without a ".00" that is the same on every one of them, and the exact
+ *   amount is always one click away in the transaction list
  */
-export function formatMoney(cents, { currency = 'LKR', showSign = false, compact = false } = {}) {
+export function formatMoney(
+  cents,
+  { currency = 'LKR', showSign = false, compact = false, whole = false } = {}
+) {
   const value = (cents ?? 0) / 100;
   const sign = value < 0 ? '-' : showSign && value > 0 ? '+' : '';
 
+  const fractionDigits = compact || whole ? 0 : 2;
   const formatter = new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: compact ? 0 : 2,
-    maximumFractionDigits: compact ? 1 : 2,
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: compact ? 1 : fractionDigits,
     notation: compact ? 'compact' : 'standard',
   });
 
-  return `${sign}${currencySymbol(currency)} ${formatter.format(Math.abs(value))}`;
+  // Non-breaking space: "Rs" must never end up on a different line to its figure.
+  return `${sign}${currencySymbol(currency)}\u00a0${formatter.format(Math.abs(value))}`;
 }
 
 /** Bare number, no symbol — for table cells that already have a currency header. */
