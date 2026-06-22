@@ -134,7 +134,9 @@ export function BudgetsPage() {
                 />
               ) : (
                 <ul className="budgets__list">
-                  {data.budgets.map((budget) => (
+                  {data.budgets.map((budget) => {
+                    const status = caption(budget, data.monthElapsedPercent, money);
+                    return (
                     <li key={budget.id} className="budget">
                       <div className="budget__bar">
                         <ProgressBar
@@ -142,7 +144,8 @@ export function BudgetsPage() {
                           value={budget.spent}
                           max={budget.amount}
                           formatValue={money}
-                          caption={caption(budget, data.monthElapsedPercent, money)}
+                          caption={status.text}
+                          captionTone={status.tone}
                         />
                       </div>
                       <button
@@ -154,7 +157,8 @@ export function BudgetsPage() {
                         Remove
                       </button>
                     </li>
-                  ))}
+                    );
+                  })}
                 </ul>
               )}
             </Card>
@@ -212,16 +216,25 @@ export function BudgetsPage() {
 }
 
 /**
- * Explains the bar in words. Pacing matters as much as the total: being at 60%
- * of the cap is fine on the 20th and a problem on the 5th.
+ * Explains the bar in words, with the tone the message deserves. Pacing matters
+ * as much as the total: being at 60% of the cap is fine on the 20th and a
+ * problem on the 5th, so a bar still in the green can carry an amber warning.
  */
 function caption(budget, elapsedPercent, money) {
-  if (budget.overspent) return `Over by ${money(budget.spent - budget.amount)}`;
+  if (budget.overspent) {
+    return { text: `Over by ${money(budget.spent - budget.amount)}`, tone: 'over' };
+  }
   if (budget.projected > budget.amount) {
-    return `On track to overspend by ${money(budget.projected - budget.amount)}`;
+    return {
+      text: `On track to overspend by ${money(budget.projected - budget.amount)}`,
+      tone: 'near',
+    };
   }
   if (budget.usedPercent > elapsedPercent + 15) {
-    return `${budget.usedPercent}% used with ${Math.round(100 - elapsedPercent)}% of the month left`;
+    return {
+      text: `${budget.usedPercent}% used with ${Math.round(100 - elapsedPercent)}% of the month left`,
+      tone: 'near',
+    };
   }
-  return `${money(budget.remaining)} left`;
+  return { text: `${money(budget.remaining)} left`, tone: 'under' };
 }

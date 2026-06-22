@@ -61,9 +61,13 @@ export function Sparkline({ values, color = 'var(--accent)', label = 'Trend' }) 
  * A labelled progress bar. Goes amber as the cap approaches and red past it, so
  * the colour alone answers "am I over?".
  */
-export function ProgressBar({ value, max, label, caption, formatValue = String }) {
+export function ProgressBar({ value, max, label, caption, captionTone, formatValue = String }) {
   const ratio = max > 0 ? value / max : 0;
   const tone = ratio > 1 ? 'over' : ratio >= 0.85 ? 'near' : 'under';
+  // The bar shows what has been spent; the caption may be warning about where
+  // the month is heading. They can legitimately disagree, so the caption is
+  // allowed its own colour rather than inheriting a reassuring green.
+  const messageTone = captionTone ?? tone;
 
   return (
     <div className="progress">
@@ -86,7 +90,7 @@ export function ProgressBar({ value, max, label, caption, formatValue = String }
         <div className="progress__fill" style={{ width: `${Math.min(100, ratio * 100)}%` }} />
       </div>
 
-      {caption && <p className={`progress__caption progress__caption--${tone}`}>{caption}</p>}
+      {caption && <p className={`progress__caption progress__caption--${messageTone}`}>{caption}</p>}
     </div>
   );
 }
