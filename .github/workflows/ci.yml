@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A new push to the same branch makes the previous run's result irrelevant.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test and build
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # 22.5 is the floor `node:sqlite` needs; 24 is what we develop against.
+        node: ['22.x', '24.x']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      # `npm ci` over `npm install` so the lockfile is enforced, not updated.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npx prettier --check .
+
+      - name: Run migrations against a scratch database
+        run: npm run db:migrate --workspace=server
+        env:
+          DATABASE_FILE: ${{ runner.temp }}/ci.db
+          JWT_SECRET: ci-secret-long-enough-to-satisfy-validation
+
+      - name: Run server tests
+        run: npm test --workspace=server
+
+      - name: Build the client
+        run: npm run build --workspace=web
