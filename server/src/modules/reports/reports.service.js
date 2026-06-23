@@ -44,9 +44,10 @@ export function getOverview(userId, month = currentMonth()) {
       expenses: previous.expenses,
       net: previous.income - previous.expenses,
     },
-    expensesChange: previous.expenses > 0
-      ? Math.round(((expenses - previous.expenses) / previous.expenses) * 1000) / 10
-      : null,
+    expensesChange:
+      previous.expenses > 0
+        ? Math.round(((expenses - previous.expenses) / previous.expenses) * 1000) / 10
+        : null,
     topCategories: withShare(categoryBreakdown(userId, { from: start, to: end }).slice(0, 5)),
     budgets: budgetTotals(userId, month),
     trend: monthlyTrend(userId, lastMonths(month, 6)),

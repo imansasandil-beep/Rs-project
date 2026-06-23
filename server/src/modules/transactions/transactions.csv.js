@@ -46,7 +46,11 @@ function lookup(rows) {
  * @param {boolean} options.createMissing  create unknown accounts/categories
  * @param {boolean} options.dryRun         validate and report without writing
  */
-export function importTransactionsCsv(userId, text, { createMissing = false, dryRun = false } = {}) {
+export function importTransactionsCsv(
+  userId,
+  text,
+  { createMissing = false, dryRun = false } = {}
+) {
   const rows = parseCsv(text);
   if (rows.length === 0) throw badRequest('The file has no rows');
 
@@ -100,7 +104,9 @@ export function importTransactionsCsv(userId, text, { createMissing = false, dry
       category = categories.get(categoryName.toLowerCase());
       if (!category && !createMissing) return problem(`No category called "${categoryName}"`);
       if (category && category.kind !== wantedKind) {
-        return problem(`"${categoryName}" is an ${category.kind} category but the row is ${direction}`);
+        return problem(
+          `"${categoryName}" is an ${category.kind} category but the row is ${direction}`
+        );
       }
       if (!category) {
         newCategories.set(categoryName.toLowerCase(), { name: categoryName, kind: wantedKind });

@@ -53,7 +53,15 @@ export function TransactionsPage() {
       limit: PAGE_SIZE,
       offset: page * PAGE_SIZE,
     }),
-    [search, filters.accountId, filters.categoryId, filters.direction, filters.from, filters.to, page]
+    [
+      search,
+      filters.accountId,
+      filters.categoryId,
+      filters.direction,
+      filters.from,
+      filters.to,
+      page,
+    ]
   );
 
   const transactions = useApi('/api/transactions', { query, deps: [query] });
@@ -108,11 +116,15 @@ export function TransactionsPage() {
             <>
               <span className="txns__total">
                 <span className="txns__total-label">In</span>
-                <span className="txns__total-value is-in">{formatMoney(data.totals.inflow, { currency })}</span>
+                <span className="txns__total-value is-in">
+                  {formatMoney(data.totals.inflow, { currency })}
+                </span>
               </span>
               <span className="txns__total">
                 <span className="txns__total-label">Out</span>
-                <span className="txns__total-value is-out">{formatMoney(data.totals.outflow, { currency })}</span>
+                <span className="txns__total-value is-out">
+                  {formatMoney(data.totals.outflow, { currency })}
+                </span>
               </span>
               <span className="txns__total">
                 <span className="txns__total-label">Net</span>
@@ -149,7 +161,11 @@ export function TransactionsPage() {
             aria-label="Search transactions"
           />
 
-          <Select value={filters.accountId} onChange={(e) => update('accountId', e.target.value)} aria-label="Filter by account">
+          <Select
+            value={filters.accountId}
+            onChange={(e) => update('accountId', e.target.value)}
+            aria-label="Filter by account"
+          >
             <option value="">All accounts</option>
             {accounts.data?.accounts.map((account) => (
               <option key={account.id} value={account.id}>
@@ -158,7 +174,11 @@ export function TransactionsPage() {
             ))}
           </Select>
 
-          <Select value={filters.categoryId} onChange={(e) => update('categoryId', e.target.value)} aria-label="Filter by category">
+          <Select
+            value={filters.categoryId}
+            onChange={(e) => update('categoryId', e.target.value)}
+            aria-label="Filter by category"
+          >
             <option value="">All categories</option>
             {categories.data?.categories.map((category) => (
               <option key={category.id} value={category.id}>
@@ -167,14 +187,28 @@ export function TransactionsPage() {
             ))}
           </Select>
 
-          <Select value={filters.direction} onChange={(e) => update('direction', e.target.value)} aria-label="Filter by direction">
+          <Select
+            value={filters.direction}
+            onChange={(e) => update('direction', e.target.value)}
+            aria-label="Filter by direction"
+          >
             <option value="">In and out</option>
             <option value="in">Money in</option>
             <option value="out">Money out</option>
           </Select>
 
-          <Input type="date" value={filters.from} onChange={(e) => update('from', e.target.value)} aria-label="From date" />
-          <Input type="date" value={filters.to} onChange={(e) => update('to', e.target.value)} aria-label="To date" />
+          <Input
+            type="date"
+            value={filters.from}
+            onChange={(e) => update('from', e.target.value)}
+            aria-label="From date"
+          />
+          <Input
+            type="date"
+            value={filters.to}
+            onChange={(e) => update('to', e.target.value)}
+            aria-label="To date"
+          />
 
           {activeFilterCount > 0 && (
             <Button
@@ -198,7 +232,9 @@ export function TransactionsPage() {
           skeleton={<Skeleton rows={8} />}
           empty={
             <EmptyState
-              title={activeFilterCount > 0 ? 'Nothing matches those filters' : 'Your ledger is empty'}
+              title={
+                activeFilterCount > 0 ? 'Nothing matches those filters' : 'Your ledger is empty'
+              }
               message={
                 activeFilterCount > 0
                   ? 'Try widening the date range or clearing a filter.'

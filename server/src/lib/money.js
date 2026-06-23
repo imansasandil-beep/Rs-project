@@ -57,8 +57,12 @@ export function sumMinorUnits(values) {
  * the earliest shares so the result always adds back up to the original.
  */
 export function splitMinorUnits(minor, parts) {
-  if (!Number.isInteger(parts) || parts < 1) throw new RangeError('parts must be a positive integer');
+  if (!Number.isInteger(parts) || parts < 1)
+    throw new RangeError('parts must be a positive integer');
   const base = Math.trunc(minor / parts);
   const remainder = minor - base * parts;
-  return Array.from({ length: parts }, (_, i) => base + (i < Math.abs(remainder) ? Math.sign(remainder) : 0));
+  return Array.from(
+    { length: parts },
+    (_, i) => base + (i < Math.abs(remainder) ? Math.sign(remainder) : 0)
+  );
 }

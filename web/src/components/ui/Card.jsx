@@ -41,9 +41,7 @@ export function StatCard({ label, value, change, tone = 'neutral', hint, icon })
       <p className="stat__value">{value}</p>
       {(direction || hint) && (
         <p className={`stat__meta stat__meta--${sentiment}`}>
-          {direction && (
-            <span aria-hidden="true">{direction === 'up' ? '▲' : '▼'}</span>
-          )}
+          {direction && <span aria-hidden="true">{direction === 'up' ? '▲' : '▼'}</span>}
           {direction && `${Math.abs(change).toFixed(Math.abs(change) < 10 ? 1 : 0)}%`}
           {hint && <span className="stat__hint">{hint}</span>}
         </p>

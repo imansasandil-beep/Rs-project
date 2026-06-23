@@ -31,9 +31,13 @@ export const reportRoutes = Router();
 
 reportRoutes.use(requireAuth);
 
-reportRoutes.get('/overview', validate({ query: z.object({ month: monthField.optional() }) }), (req, res) => {
-  res.json(getOverview(req.user.id, req.validatedQuery.month));
-});
+reportRoutes.get(
+  '/overview',
+  validate({ query: z.object({ month: monthField.optional() }) }),
+  (req, res) => {
+    res.json(getOverview(req.user.id, req.validatedQuery.month));
+  }
+);
 
 reportRoutes.get(
   '/by-category',

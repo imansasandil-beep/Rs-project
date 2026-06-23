@@ -22,14 +22,42 @@ before(async () => {
   const rows = [
     // May, so month-on-month comparison has something to compare against.
     { categoryId: find('Salary').id, direction: 'in', amount: '80000', occurredOn: '2026-05-25' },
-    { categoryId: find('Groceries').id, direction: 'out', amount: '10000', occurredOn: '2026-05-08' },
+    {
+      categoryId: find('Groceries').id,
+      direction: 'out',
+      amount: '10000',
+      occurredOn: '2026-05-08',
+    },
 
     // June.
     { categoryId: find('Salary').id, direction: 'in', amount: '100000', occurredOn: '2026-06-25' },
-    { categoryId: find('Groceries').id, direction: 'out', amount: '12000', occurredOn: '2026-06-03', payee: 'Keells' },
-    { categoryId: find('Groceries').id, direction: 'out', amount: '8000', occurredOn: '2026-06-17', payee: 'Keells' },
-    { categoryId: find('Rent').id, direction: 'out', amount: '45000', occurredOn: '2026-06-01', payee: 'Landlord' },
-    { categoryId: find('Transport').id, direction: 'out', amount: '5000', occurredOn: '2026-06-12' },
+    {
+      categoryId: find('Groceries').id,
+      direction: 'out',
+      amount: '12000',
+      occurredOn: '2026-06-03',
+      payee: 'Keells',
+    },
+    {
+      categoryId: find('Groceries').id,
+      direction: 'out',
+      amount: '8000',
+      occurredOn: '2026-06-17',
+      payee: 'Keells',
+    },
+    {
+      categoryId: find('Rent').id,
+      direction: 'out',
+      amount: '45000',
+      occurredOn: '2026-06-01',
+      payee: 'Landlord',
+    },
+    {
+      categoryId: find('Transport').id,
+      direction: 'out',
+      amount: '5000',
+      occurredOn: '2026-06-12',
+    },
   ];
   for (const row of rows) await client.post('/api/transactions', { accountId: bank.id, ...row });
 
@@ -100,7 +128,9 @@ describe('GET /api/reports/by-category', () => {
   });
 
   test('splits income when asked for the other direction', async () => {
-    const res = await client.get('/api/reports/by-category?from=2026-06-01&to=2026-06-30&direction=in');
+    const res = await client.get(
+      '/api/reports/by-category?from=2026-06-01&to=2026-06-30&direction=in'
+    );
     assert.equal(res.body.categories.length, 1);
     assert.equal(res.body.categories[0].name, 'Salary');
   });

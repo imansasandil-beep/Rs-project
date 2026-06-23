@@ -76,8 +76,9 @@ export function upsertBudget(userId, { categoryId, month, amount }) {
 }
 
 export function deleteBudget(userId, id) {
-  return getDb().prepare('DELETE FROM budgets WHERE id = ? AND user_id = ?').run(id, userId)
-    .changes > 0;
+  return (
+    getDb().prepare('DELETE FROM budgets WHERE id = ? AND user_id = ?').run(id, userId).changes > 0
+  );
 }
 
 /** Copies every budget from one month to another, skipping ones already set. */

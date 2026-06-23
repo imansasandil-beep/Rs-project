@@ -32,7 +32,9 @@ export function DashboardPage() {
         <div>
           <h2 className="dashboard__title">{formatMonth(month)}</h2>
           <p className="dashboard__subtitle">
-            {data ? `${data.transactionCount} transaction${data.transactionCount === 1 ? '' : 's'} recorded` : ' '}
+            {data
+              ? `${data.transactionCount} transaction${data.transactionCount === 1 ? '' : 's'} recorded`
+              : ' '}
           </p>
         </div>
         <MonthPicker value={month} onChange={setMonth} />
@@ -69,7 +71,11 @@ export function DashboardPage() {
               <StatCard
                 label="Kept this month"
                 value={wholeMoney(data.net)}
-                hint={data.savingsRate === null ? 'no income recorded' : `${data.savingsRate}% of income`}
+                hint={
+                  data.savingsRate === null
+                    ? 'no income recorded'
+                    : `${data.savingsRate}% of income`
+                }
               />
             </div>
 
@@ -135,7 +141,11 @@ export function DashboardPage() {
               >
                 <ul className="dashboard__list">
                   {recent.data?.items.map((transaction) => (
-                    <TransactionRow key={transaction.id} transaction={transaction} currency={currency} />
+                    <TransactionRow
+                      key={transaction.id}
+                      transaction={transaction}
+                      currency={currency}
+                    />
                   ))}
                 </ul>
               </AsyncContent>

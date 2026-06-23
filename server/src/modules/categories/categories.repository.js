@@ -89,8 +89,10 @@ export function setCategoryArchived(userId, id, archived) {
 }
 
 export function deleteCategory(userId, id) {
-  return getDb().prepare('DELETE FROM categories WHERE id = ? AND user_id = ?').run(id, userId)
-    .changes > 0;
+  return (
+    getDb().prepare('DELETE FROM categories WHERE id = ? AND user_id = ?').run(id, userId).changes >
+    0
+  );
 }
 
 export function countCategoryTransactions(userId, id) {

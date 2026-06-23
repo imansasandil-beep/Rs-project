@@ -7,7 +7,14 @@ import { AsyncContent, EmptyState, Skeleton } from '../components/ui/States.jsx'
 import { DonutChart } from '../components/charts/DonutChart.jsx';
 import { BarChart } from '../components/charts/BarChart.jsx';
 import { Sparkline } from '../components/charts/Sparkline.jsx';
-import { formatMoney, formatMonth, formatDay, toMonthKey, monthBounds, addMonthKey } from '../lib/format.js';
+import {
+  formatMoney,
+  formatMonth,
+  formatDay,
+  toMonthKey,
+  monthBounds,
+  addMonthKey,
+} from '../lib/format.js';
 import './ReportsPage.css';
 
 const PRESETS = [
@@ -44,7 +51,10 @@ export function ReportsPage() {
 
   const query = { from: range.start, to: range.end, direction };
 
-  const byCategory = useApi('/api/reports/by-category', { query, deps: [range.start, range.end, direction] });
+  const byCategory = useApi('/api/reports/by-category', {
+    query,
+    deps: [range.start, range.end, direction],
+  });
   const trend = useApi('/api/reports/trend', { query: { months: 12 } });
   const daily = useApi('/api/reports/daily', {
     query: { from: range.start, to: range.end },
@@ -65,7 +75,11 @@ export function ReportsPage() {
   return (
     <div className="reports">
       <div className="reports__controls">
-        <Select value={preset} onChange={(e) => choosePreset(e.target.value)} aria-label="Date range preset">
+        <Select
+          value={preset}
+          onChange={(e) => choosePreset(e.target.value)}
+          aria-label="Date range preset"
+        >
           {PRESETS.map(([value, label]) => (
             <option key={value} value={value}>
               {label}
@@ -90,7 +104,11 @@ export function ReportsPage() {
           </>
         )}
 
-        <Select value={direction} onChange={(e) => setDirection(e.target.value)} aria-label="Direction">
+        <Select
+          value={direction}
+          onChange={(e) => setDirection(e.target.value)}
+          aria-label="Direction"
+        >
           <option value="out">Spending</option>
           <option value="in">Income</option>
         </Select>
@@ -130,7 +148,10 @@ export function ReportsPage() {
           </AsyncContent>
         </Card>
 
-        <Card title="Daily spending" subtitle={daily.data ? `${money(daily.data.dailyAverage)} a day on average` : undefined}>
+        <Card
+          title="Daily spending"
+          subtitle={daily.data ? `${money(daily.data.dailyAverage)} a day on average` : undefined}
+        >
           <AsyncContent
             loading={daily.loading && !daily.data}
             error={daily.error}
@@ -139,7 +160,11 @@ export function ReportsPage() {
           >
             {daily.data && (
               <>
-                <Sparkline values={daily.data.days.map((d) => d.total)} label="Daily spending" color="var(--negative)" />
+                <Sparkline
+                  values={daily.data.days.map((d) => d.total)}
+                  label="Daily spending"
+                  color="var(--negative)"
+                />
                 <div className="reports__spark-meta">
                   <span>{formatDay(range.start, { short: true })}</span>
                   <span>{money(daily.data.total)} total</span>
@@ -157,7 +182,12 @@ export function ReportsPage() {
             onRetry={payees.refresh}
             isEmpty={payees.data?.payees.length === 0}
             skeleton={<Skeleton rows={5} height={28} />}
-            empty={<EmptyState title="No named payees" message="Fill in the 'paid to' field to see this." />}
+            empty={
+              <EmptyState
+                title="No named payees"
+                message="Fill in the 'paid to' field to see this."
+              />
+            }
           >
             <ol className="reports__payees">
               {payees.data?.payees.map((payee, index) => (
@@ -172,7 +202,11 @@ export function ReportsPage() {
           </AsyncContent>
         </Card>
 
-        <Card title="Twelve month history" subtitle="Income against spending" className="reports__wide">
+        <Card
+          title="Twelve month history"
+          subtitle="Income against spending"
+          className="reports__wide"
+        >
           <AsyncContent
             loading={trend.loading && !trend.data}
             error={trend.error}

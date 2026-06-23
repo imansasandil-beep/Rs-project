@@ -35,7 +35,11 @@ export function AccountsPage() {
     setEditing(account);
     setForm(
       account
-        ? { name: account.name, type: account.type, openingBalance: centsToInput(account.openingBalance) }
+        ? {
+            name: account.name,
+            type: account.type,
+            openingBalance: centsToInput(account.openingBalance),
+          }
         : BLANK
     );
     setFieldErrors({});
@@ -102,7 +106,9 @@ export function AccountsPage() {
         {accounts.data && (
           <div>
             <p className="accounts__total-label">Combined worth</p>
-            <p className="accounts__total">{formatMoney(accounts.data.totalBalance, { currency })}</p>
+            <p className="accounts__total">
+              {formatMoney(accounts.data.totalBalance, { currency })}
+            </p>
           </div>
         )}
 
@@ -143,7 +149,10 @@ export function AccountsPage() {
       >
         <div className="accounts__grid">
           {list.map((account) => (
-            <article key={account.id} className={`account ${account.archivedAt ? 'is-archived' : ''}`}>
+            <article
+              key={account.id}
+              className={`account ${account.archivedAt ? 'is-archived' : ''}`}
+            >
               <header className="account__header">
                 <div>
                   <h3 className="account__name">{account.name}</h3>
@@ -217,7 +226,11 @@ export function AccountsPage() {
 
           <Field label="Type" required error={fieldErrors.type}>
             {(props) => (
-              <Select {...props} value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
+              <Select
+                {...props}
+                value={form.type}
+                onChange={(e) => setForm({ ...form, type: e.target.value })}
+              >
                 {Object.entries(ACCOUNT_TYPE_LABELS).map(([value, label]) => (
                   <option key={value} value={value}>
                     {label}

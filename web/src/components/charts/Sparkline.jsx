@@ -23,7 +23,9 @@ export function Sparkline({ values, color = 'var(--accent)', label = 'Trend' }) 
     return [x, y];
   });
 
-  const line = points.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' ');
+  const line = points
+    .map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)} ${y.toFixed(1)}`)
+    .join(' ');
   const area = `${line} L${points.at(-1)[0].toFixed(1)} ${HEIGHT} L${points[0][0].toFixed(1)} ${HEIGHT} Z`;
   const gradientId = `spark-${label.replace(/\W/g, '')}`;
 
@@ -90,7 +92,9 @@ export function ProgressBar({ value, max, label, caption, captionTone, formatVal
         <div className="progress__fill" style={{ width: `${Math.min(100, ratio * 100)}%` }} />
       </div>
 
-      {caption && <p className={`progress__caption progress__caption--${messageTone}`}>{caption}</p>}
+      {caption && (
+        <p className={`progress__caption progress__caption--${messageTone}`}>{caption}</p>
+      )}
     </div>
   );
 }

@@ -99,8 +99,9 @@ export function setAccountArchived(userId, id, archived) {
 }
 
 export function deleteAccount(userId, id) {
-  return getDb().prepare('DELETE FROM accounts WHERE id = ? AND user_id = ?').run(id, userId)
-    .changes > 0;
+  return (
+    getDb().prepare('DELETE FROM accounts WHERE id = ? AND user_id = ?').run(id, userId).changes > 0
+  );
 }
 
 export function countAccountTransactions(userId, id) {

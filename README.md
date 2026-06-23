@@ -11,13 +11,13 @@ and has no cloud dependency.
 
 ## Stack
 
-| Layer    | Choice                                                        |
-| -------- | ------------------------------------------------------------- |
-| Runtime  | Node.js 22.5+ (uses the built-in `node:sqlite` driver)         |
-| API      | Express                                                       |
-| Database | SQLite, one file, migrated on boot                             |
-| Client   | React + Vite                                                   |
-| Tests    | `node:test`                                                    |
+| Layer    | Choice                                                 |
+| -------- | ------------------------------------------------------ |
+| Runtime  | Node.js 22.5+ (uses the built-in `node:sqlite` driver) |
+| API      | Express                                                |
+| Database | SQLite, one file, migrated on boot                     |
+| Client   | React + Vite                                           |
+| Tests    | `node:test`                                            |
 
 There is no ORM and no native build step — `node:sqlite` ships with Node itself.
 
@@ -40,13 +40,13 @@ The API listens on `http://localhost:4000` and the client on `http://localhost:5
 
 ## Scripts
 
-| Command            | Does                                     |
-| ------------------ | ---------------------------------------- |
-| `npm run dev`      | Runs the API and the client together     |
-| `npm run dev:server` | API only                               |
-| `npm run dev:web`  | Client only                              |
-| `npm run build`    | Builds the client into `web/dist`        |
-| `npm test`         | Runs every workspace's test suite        |
+| Command              | Does                                 |
+| -------------------- | ------------------------------------ |
+| `npm run dev`        | Runs the API and the client together |
+| `npm run dev:server` | API only                             |
+| `npm run dev:web`    | Client only                          |
+| `npm run build`      | Builds the client into `web/dist`    |
+| `npm test`           | Runs every workspace's test suite    |
 
 ## License
 

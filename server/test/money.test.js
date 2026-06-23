@@ -36,7 +36,11 @@ describe('toMinorUnits', () => {
 
   test('rejects non-numeric input', () => {
     for (const bad of ['', '  ', 'abc', '1,250', '1.2.3', null, undefined]) {
-      assert.throws(() => toMinorUnits(bad), RangeError, `expected ${JSON.stringify(bad)} to throw`);
+      assert.throws(
+        () => toMinorUnits(bad),
+        RangeError,
+        `expected ${JSON.stringify(bad)} to throw`
+      );
     }
   });
 });

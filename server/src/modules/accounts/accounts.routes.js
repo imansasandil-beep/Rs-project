@@ -36,9 +36,13 @@ accountRoutes.get('/:id', validate({ params: idParam }), (req, res) => {
   res.json({ account: getAccount(req.user.id, req.params.id) });
 });
 
-accountRoutes.patch('/:id', validate({ params: idParam, body: updateAccountSchema }), (req, res) => {
-  res.json({ account: editAccount(req.user.id, req.params.id, req.body) });
-});
+accountRoutes.patch(
+  '/:id',
+  validate({ params: idParam, body: updateAccountSchema }),
+  (req, res) => {
+    res.json({ account: editAccount(req.user.id, req.params.id, req.body) });
+  }
+);
 
 accountRoutes.put(
   '/:id/archived',

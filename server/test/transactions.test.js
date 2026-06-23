@@ -14,10 +14,12 @@ before(async () => {
   resetDatabase();
   await client.signUp();
 
-  wallet = (await client.post('/api/accounts', { name: 'Wallet', type: 'cash', openingBalance: '1000' }))
-    .body.account;
-  bank = (await client.post('/api/accounts', { name: 'Bank', type: 'bank', openingBalance: '50000' }))
-    .body.account;
+  wallet = (
+    await client.post('/api/accounts', { name: 'Wallet', type: 'cash', openingBalance: '1000' })
+  ).body.account;
+  bank = (
+    await client.post('/api/accounts', { name: 'Bank', type: 'bank', openingBalance: '50000' })
+  ).body.account;
 
   const categories = (await client.get('/api/categories')).body.categories;
   groceries = categories.find((c) => c.name === 'Groceries');
@@ -110,9 +112,30 @@ describe('GET /api/transactions', () => {
     salary = categories.find((c) => c.name === 'Salary');
 
     const rows = [
-      { accountId: wallet.id, categoryId: groceries.id, direction: 'out', amount: '500', occurredOn: '2026-06-01', payee: 'Keells' },
-      { accountId: wallet.id, categoryId: groceries.id, direction: 'out', amount: '1200', occurredOn: '2026-06-10', payee: 'Cargills' },
-      { accountId: bank.id, categoryId: salary.id, direction: 'in', amount: '95000', occurredOn: '2026-06-25', payee: 'Employer' },
+      {
+        accountId: wallet.id,
+        categoryId: groceries.id,
+        direction: 'out',
+        amount: '500',
+        occurredOn: '2026-06-01',
+        payee: 'Keells',
+      },
+      {
+        accountId: wallet.id,
+        categoryId: groceries.id,
+        direction: 'out',
+        amount: '1200',
+        occurredOn: '2026-06-10',
+        payee: 'Cargills',
+      },
+      {
+        accountId: bank.id,
+        categoryId: salary.id,
+        direction: 'in',
+        amount: '95000',
+        occurredOn: '2026-06-25',
+        payee: 'Employer',
+      },
     ];
     for (const row of rows) await client.post('/api/transactions', row);
   });
@@ -187,7 +210,10 @@ describe('transfers', () => {
       res.body.legs.map((l) => l.direction),
       ['out', 'in']
     );
-    assert.ok(res.body.legs.every((l) => l.categoryId === null), 'transfers are never categorized');
+    assert.ok(
+      res.body.legs.every((l) => l.categoryId === null),
+      'transfers are never categorized'
+    );
 
     const after = (await client.get('/api/accounts')).body.totalBalance;
     assert.equal(after, before, 'moving your own money does not change what you have');

@@ -90,7 +90,9 @@ export function formatRelativeDay(day, now = new Date()) {
   yesterday.setDate(yesterday.getDate() - 1);
   if (day === toDayKey(yesterday)) return 'Yesterday';
 
-  return formatDay(day, { short: new Date(`${day}T00:00:00Z`).getUTCFullYear() === now.getFullYear() });
+  return formatDay(day, {
+    short: new Date(`${day}T00:00:00Z`).getUTCFullYear() === now.getFullYear(),
+  });
 }
 
 export function toDayKey(date = new Date()) {

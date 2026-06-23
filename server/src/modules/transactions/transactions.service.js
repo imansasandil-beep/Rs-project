@@ -68,7 +68,9 @@ export function editTransaction(userId, id, input) {
   const existing = getTransaction(userId, id);
 
   if (existing.isTransfer) {
-    throw conflict('Edit the transfer instead of one of its legs', { transferId: existing.transferId });
+    throw conflict('Edit the transfer instead of one of its legs', {
+      transferId: existing.transferId,
+    });
   }
 
   if (input.accountId) assertUsableAccount(userId, input.accountId);
@@ -76,7 +78,9 @@ export function editTransaction(userId, id, input) {
   // Direction and category are checked together — changing either can break the
   // pairing, and the update may only supply one of them.
   const nextDirection = input.direction ?? existing.direction;
-  const nextCategoryId = Object.hasOwn(input, 'categoryId') ? input.categoryId : existing.categoryId;
+  const nextCategoryId = Object.hasOwn(input, 'categoryId')
+    ? input.categoryId
+    : existing.categoryId;
   assertMatchingCategory(userId, nextCategoryId, nextDirection);
 
   return updateTransaction(userId, id, input);

@@ -19,7 +19,14 @@ export function ErrorState({ error, onRetry }) {
   return (
     <div className="empty empty--error" role="alert">
       <div className="empty__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg
+          viewBox="0 0 24 24"
+          width="28"
+          height="28"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        >
           <circle cx="12" cy="12" r="9" />
           <path d="M12 7.5v5.5M12 16.2v.3" strokeLinecap="round" />
         </svg>

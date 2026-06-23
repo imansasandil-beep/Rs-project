@@ -27,7 +27,10 @@ export function ThemeProvider({ children }) {
     return () => media.removeEventListener('change', onChange);
   }, []);
 
-  const toggle = useCallback(() => setTheme((current) => (current === 'dark' ? 'light' : 'dark')), []);
+  const toggle = useCallback(
+    () => setTheme((current) => (current === 'dark' ? 'light' : 'dark')),
+    []
+  );
 
   const value = useMemo(
     () => ({ theme, isDark: theme === 'dark', setTheme, toggle }),

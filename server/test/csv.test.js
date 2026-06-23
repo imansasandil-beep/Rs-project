@@ -63,7 +63,10 @@ describe('parseCsv', () => {
   });
 
   test('round-trips awkward values through toCsv', () => {
-    const rows = [{ payee: 'A,B "C"', note: 'multi\r\nline' }, { payee: 'plain', note: '' }];
+    const rows = [
+      { payee: 'A,B "C"', note: 'multi\r\nline' },
+      { payee: 'plain', note: '' },
+    ];
     assert.deepEqual(parseCsv(toCsv(['payee', 'note'], rows)), rows);
   });
 });

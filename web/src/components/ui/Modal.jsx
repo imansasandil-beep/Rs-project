@@ -98,7 +98,15 @@ export function Modal({ open, onClose, title, description, footer, children, siz
 }
 
 /** A Modal preset for destructive confirmations. */
-export function ConfirmDialog({ open, onClose, onConfirm, title, message, confirmLabel = 'Delete', pending = false }) {
+export function ConfirmDialog({
+  open,
+  onClose,
+  onConfirm,
+  title,
+  message,
+  confirmLabel = 'Delete',
+  pending = false,
+}) {
   return (
     <Modal
       open={open}

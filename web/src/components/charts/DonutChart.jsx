@@ -32,7 +32,13 @@ export function DonutChart({ data, total, centerLabel, centerValue, formatValue 
   return (
     <div className="donut">
       <div className="donut__figure">
-        <svg viewBox={`0 0 ${SIZE} ${SIZE}`} width={SIZE} height={SIZE} role="img" aria-label={`${centerLabel}: ${centerValue}`}>
+        <svg
+          viewBox={`0 0 ${SIZE} ${SIZE}`}
+          width={SIZE}
+          height={SIZE}
+          role="img"
+          aria-label={`${centerLabel}: ${centerValue}`}
+        >
           {/* -90deg so the first slice starts at twelve o'clock. */}
           <g transform={`rotate(-90 ${SIZE / 2} ${SIZE / 2})`}>
             {slices.map((slice, index) => (
@@ -56,7 +62,9 @@ export function DonutChart({ data, total, centerLabel, centerValue, formatValue 
         </svg>
 
         <div className="donut__center">
-          <span className="donut__center-label">{highlighted ? highlighted.label : centerLabel}</span>
+          <span className="donut__center-label">
+            {highlighted ? highlighted.label : centerLabel}
+          </span>
           <span className="donut__center-value">
             {highlighted ? formatValue(highlighted.value) : centerValue}
           </span>
@@ -74,7 +82,11 @@ export function DonutChart({ data, total, centerLabel, centerValue, formatValue 
               onFocus={() => setActive(index)}
               onBlur={() => setActive(null)}
             >
-              <span className="donut__swatch" style={{ background: slice.color }} aria-hidden="true" />
+              <span
+                className="donut__swatch"
+                style={{ background: slice.color }}
+                aria-hidden="true"
+              />
               <span className="donut__legend-label">{slice.label}</span>
               <span className="donut__legend-value">{formatValue(slice.value)}</span>
               <span className="donut__legend-share">{(slice.fraction * 100).toFixed(0)}%</span>

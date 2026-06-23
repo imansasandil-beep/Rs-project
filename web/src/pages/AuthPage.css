@@ -4,8 +4,7 @@
   min-height: 100vh;
   padding: var(--space-5);
   background:
-    radial-gradient(1000px 500px at 50% -10%, var(--accent-soft), transparent 70%),
-    var(--bg);
+    radial-gradient(1000px 500px at 50% -10%, var(--accent-soft), transparent 70%), var(--bg);
 }
 
 .auth__panel {

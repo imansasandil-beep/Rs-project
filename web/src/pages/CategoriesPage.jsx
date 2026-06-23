@@ -10,9 +10,22 @@ import { AsyncContent, EmptyState, Skeleton } from '../components/ui/States.jsx'
 import './CategoriesPage.css';
 
 const SWATCHES = [
-  '#ef4444', '#f97316', '#eab308', '#84cc16', '#22c55e', '#14b8a6',
-  '#06b6d4', '#0ea5e9', '#3b82f6', '#6366f1', '#8b5cf6', '#a855f7',
-  '#d946ef', '#ec4899', '#64748b', '#94a3b8',
+  '#ef4444',
+  '#f97316',
+  '#eab308',
+  '#84cc16',
+  '#22c55e',
+  '#14b8a6',
+  '#06b6d4',
+  '#0ea5e9',
+  '#3b82f6',
+  '#6366f1',
+  '#8b5cf6',
+  '#a855f7',
+  '#d946ef',
+  '#ec4899',
+  '#64748b',
+  '#94a3b8',
 ];
 
 const BLANK = { name: '', kind: 'expense', color: '#3b82f6' };
@@ -70,7 +83,9 @@ export function CategoriesPage() {
   async function toggleArchive(category) {
     try {
       await api.put(`/api/categories/${category.id}/archived`, { archived: !category.archivedAt });
-      toast.success(category.archivedAt ? `${category.name} restored` : `${category.name} archived`);
+      toast.success(
+        category.archivedAt ? `${category.name} restored` : `${category.name} archived`
+      );
       categories.refresh();
     } catch (err) {
       toast.error(err.message);
@@ -97,13 +112,17 @@ export function CategoriesPage() {
     <div className="categories">
       <div className="categories__header">
         <p className="categories__intro">
-          Categories drive every report. Archive the ones you stop using — deleting is only
-          possible while nothing is filed under them.
+          Categories drive every report. Archive the ones you stop using — deleting is only possible
+          while nothing is filed under them.
         </p>
 
         <div className="categories__header-actions">
           <label className="categories__toggle">
-            <input type="checkbox" checked={showArchived} onChange={(e) => setShowArchived(e.target.checked)} />
+            <input
+              type="checkbox"
+              checked={showArchived}
+              onChange={(e) => setShowArchived(e.target.checked)}
+            />
             Show archived
           </label>
           <Button variant="primary" onClick={() => openForm()}>
@@ -126,28 +145,52 @@ export function CategoriesPage() {
       >
         <div className="categories__groups">
           {groups.map(([kind, label, items]) => (
-            <Card key={kind} title={label} subtitle={`${items.length} categor${items.length === 1 ? 'y' : 'ies'}`} padded={false}>
+            <Card
+              key={kind}
+              title={label}
+              subtitle={`${items.length} categor${items.length === 1 ? 'y' : 'ies'}`}
+              padded={false}
+            >
               {items.length === 0 ? (
                 <EmptyState title={`No ${label.toLowerCase()} categories`} />
               ) : (
                 <ul className="categories__list">
                   {items.map((category) => (
-                    <li key={category.id} className={`category ${category.archivedAt ? 'is-archived' : ''}`}>
-                      <span className="category__swatch" style={{ background: category.color }} aria-hidden="true" />
+                    <li
+                      key={category.id}
+                      className={`category ${category.archivedAt ? 'is-archived' : ''}`}
+                    >
+                      <span
+                        className="category__swatch"
+                        style={{ background: category.color }}
+                        aria-hidden="true"
+                      />
                       <span className="category__name">{category.name}</span>
                       <span className="category__count">
                         {category.transactionCount} use{category.transactionCount === 1 ? '' : 's'}
                       </span>
 
                       <span className="category__actions">
-                        <button type="button" className="category__action" onClick={() => openForm(category)}>
+                        <button
+                          type="button"
+                          className="category__action"
+                          onClick={() => openForm(category)}
+                        >
                           Edit
                         </button>
-                        <button type="button" className="category__action" onClick={() => toggleArchive(category)}>
+                        <button
+                          type="button"
+                          className="category__action"
+                          onClick={() => toggleArchive(category)}
+                        >
                           {category.archivedAt ? 'Restore' : 'Archive'}
                         </button>
                         {category.transactionCount === 0 && (
-                          <button type="button" className="category__action category__action--danger" onClick={() => remove(category)}>
+                          <button
+                            type="button"
+                            className="category__action category__action--danger"
+                            onClick={() => remove(category)}
+                          >
                             Delete
                           </button>
                         )}
@@ -197,7 +240,11 @@ export function CategoriesPage() {
             label="Kind"
             required
             error={fieldErrors.kind}
-            hint={editing ? 'Kind cannot change once transactions are filed under a category.' : undefined}
+            hint={
+              editing
+                ? 'Kind cannot change once transactions are filed under a category.'
+                : undefined
+            }
           >
             {(props) => (
               <Select

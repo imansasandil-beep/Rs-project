@@ -27,10 +27,13 @@ export const listTransactionsSchema = z
     message: 'Must be on or after the start date',
     path: ['to'],
   })
-  .refine((f) => f.minAmount === undefined || f.maxAmount === undefined || f.minAmount <= f.maxAmount, {
-    message: 'Must be at least the minimum amount',
-    path: ['maxAmount'],
-  });
+  .refine(
+    (f) => f.minAmount === undefined || f.maxAmount === undefined || f.minAmount <= f.maxAmount,
+    {
+      message: 'Must be at least the minimum amount',
+      path: ['maxAmount'],
+    }
+  );
 
 export const createTransactionSchema = z.object({
   accountId: idField,

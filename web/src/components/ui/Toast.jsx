@@ -22,7 +22,10 @@ export function ToastProvider({ children }) {
       setToasts((current) => [...current, { id, message, tone }]);
       // Errors stay until dismissed — they usually need reading twice.
       if (tone !== 'error') {
-        timers.current.set(id, setTimeout(() => dismiss(id), duration));
+        timers.current.set(
+          id,
+          setTimeout(() => dismiss(id), duration)
+        );
       }
       return id;
     },
@@ -54,7 +57,12 @@ export function ToastProvider({ children }) {
               aria-label="Dismiss notification"
             >
               <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
-                <path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                <path
+                  d="m4 4 8 8M12 4l-8 8"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
           </div>

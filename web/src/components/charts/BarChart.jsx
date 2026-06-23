@@ -34,7 +34,9 @@ export function BarChart({ data, formatValue = String, formatLabel = (m) => m })
                 <span className="bars__tooltip-row">
                   <span className="bars__dot bars__dot--out" /> Out {formatValue(point.expenses)}
                 </span>
-                <span className={`bars__tooltip-net ${point.net >= 0 ? 'is-positive' : 'is-negative'}`}>
+                <span
+                  className={`bars__tooltip-net ${point.net >= 0 ? 'is-positive' : 'is-negative'}`}
+                >
                   Net {formatValue(point.net)}
                 </span>
               </div>

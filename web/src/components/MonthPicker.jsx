@@ -14,7 +14,15 @@ export function MonthPicker({ value, onChange, allowFuture = false }) {
   return (
     <div className="month-picker">
       <IconButton label="Previous month" onClick={() => onChange(addMonthKey(value, -1))}>
-        <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+        <svg
+          viewBox="0 0 16 16"
+          width="15"
+          height="15"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          aria-hidden="true"
+        >
           <path d="M10 3 5 8l5 5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </IconButton>
@@ -26,7 +34,15 @@ export function MonthPicker({ value, onChange, allowFuture = false }) {
         onClick={() => onChange(addMonthKey(value, 1))}
         disabled={atLatest}
       >
-        <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+        <svg
+          viewBox="0 0 16 16"
+          width="15"
+          height="15"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          aria-hidden="true"
+        >
           <path d="m6 3 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </IconButton>

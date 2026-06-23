@@ -36,7 +36,9 @@ export async function register({ email, name, password, currency }) {
     // Two simultaneous registrations can both pass the check above; the unique
     // index is the real arbiter, so translate its error rather than 500.
     if (String(err.message).includes('UNIQUE constraint failed: users.email')) {
-      throw conflict('An account with that email already exists', { email: ['Already registered'] });
+      throw conflict('An account with that email already exists', {
+        email: ['Already registered'],
+      });
     }
     throw err;
   }

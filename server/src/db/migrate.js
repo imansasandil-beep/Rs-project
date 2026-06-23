@@ -42,7 +42,10 @@ export function migrate({ silent = false } = {}) {
   `);
 
   const applied = new Map(
-    db.prepare('SELECT version, name, checksum FROM schema_migrations').all().map((r) => [r.version, r])
+    db
+      .prepare('SELECT version, name, checksum FROM schema_migrations')
+      .all()
+      .map((r) => [r.version, r])
   );
   const record = db.prepare(
     'INSERT INTO schema_migrations (version, name, checksum) VALUES (?, ?, ?)'

@@ -5,7 +5,7 @@ import { getDb } from '../../db/connection.js';
  * between your own accounts is not income and not spending — counting it would
  * inflate both sides of every report by the same amount.
  */
-const REAL_MONEY = "t.transfer_id IS NULL";
+const REAL_MONEY = 't.transfer_id IS NULL';
 
 /** Income, spending and net for one calendar month. */
 export function monthSummary(userId, month) {
@@ -108,7 +108,9 @@ export function topPayees(userId, { from, to, limit = 10 }) {
 /** Earliest and latest days that have any activity, for date-picker bounds. */
 export function ledgerRange(userId) {
   const row = getDb()
-    .prepare('SELECT MIN(occurred_on) AS first, MAX(occurred_on) AS last FROM transactions WHERE user_id = ?')
+    .prepare(
+      'SELECT MIN(occurred_on) AS first, MAX(occurred_on) AS last FROM transactions WHERE user_id = ?'
+    )
     .get(userId);
   return { first: row.first ?? null, last: row.last ?? null };
 }

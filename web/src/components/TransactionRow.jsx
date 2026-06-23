@@ -13,12 +13,18 @@ export function TransactionRow({ transaction, currency, onEdit, onDelete }) {
     <li className={`txn ${isTransfer ? 'txn--transfer' : ''}`}>
       <span
         className="txn__marker"
-        style={{ background: isTransfer ? 'var(--text-subtle)' : (category?.color ?? 'var(--border-strong)') }}
+        style={{
+          background: isTransfer
+            ? 'var(--text-subtle)'
+            : (category?.color ?? 'var(--border-strong)'),
+        }}
         aria-hidden="true"
       />
 
       <div className="txn__main">
-        <span className="txn__title">{payee || category?.name || (isTransfer ? 'Transfer' : 'Uncategorized')}</span>
+        <span className="txn__title">
+          {payee || category?.name || (isTransfer ? 'Transfer' : 'Uncategorized')}
+        </span>
         <span className="txn__meta">
           {isTransfer ? 'Transfer' : (category?.name ?? 'Uncategorized')}
           <span className="txn__dot" aria-hidden="true">
@@ -48,16 +54,46 @@ export function TransactionRow({ transaction, currency, onEdit, onDelete }) {
       {(onEdit || onDelete) && (
         <span className="txn__actions">
           {onEdit && !isTransfer && (
-            <button type="button" className="txn__action" onClick={() => onEdit(transaction)} aria-label={`Edit ${payee || 'transaction'}`}>
-              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+            <button
+              type="button"
+              className="txn__action"
+              onClick={() => onEdit(transaction)}
+              aria-label={`Edit ${payee || 'transaction'}`}
+            >
+              <svg
+                viewBox="0 0 16 16"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                aria-hidden="true"
+              >
                 <path d="M11.5 2.5 13.5 4.5 5.5 12.5 2.5 13.5 3.5 10.5z" strokeLinejoin="round" />
               </svg>
             </button>
           )}
           {onDelete && (
-            <button type="button" className="txn__action txn__action--danger" onClick={() => onDelete(transaction)} aria-label={`Delete ${payee || 'transaction'}`}>
-              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                <path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5 5 13h6l.5-8.5" strokeLinecap="round" strokeLinejoin="round" />
+            <button
+              type="button"
+              className="txn__action txn__action--danger"
+              onClick={() => onDelete(transaction)}
+              aria-label={`Delete ${payee || 'transaction'}`}
+            >
+              <svg
+                viewBox="0 0 16 16"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5 5 13h6l.5-8.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           )}

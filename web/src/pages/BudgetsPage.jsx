@@ -10,7 +10,13 @@ import { Field, Select, AmountInput } from '../components/ui/Field.jsx';
 import { AsyncContent, EmptyState, Skeleton } from '../components/ui/States.jsx';
 import { ProgressBar } from '../components/charts/Sparkline.jsx';
 import { MonthPicker } from '../components/MonthPicker.jsx';
-import { formatMoney, formatMonth, toMonthKey, addMonthKey, currencySymbol } from '../lib/format.js';
+import {
+  formatMoney,
+  formatMonth,
+  toMonthKey,
+  addMonthKey,
+  currencySymbol,
+} from '../lib/format.js';
 import './BudgetsPage.css';
 
 export function BudgetsPage() {
@@ -37,7 +43,11 @@ export function BudgetsPage() {
     setFieldErrors({});
     setError(null);
     try {
-      await api.put('/api/budgets', { categoryId: Number(form.categoryId), month, amount: form.amount });
+      await api.put('/api/budgets', {
+        categoryId: Number(form.categoryId),
+        month,
+        amount: form.amount,
+      });
       toast.success('Budget saved');
       setFormOpen(false);
       progress.refresh();
@@ -91,7 +101,9 @@ export function BudgetsPage() {
       <div className="budgets__header">
         <MonthPicker value={month} onChange={setMonth} allowFuture />
         <div className="budgets__header-actions">
-          <Button onClick={rollover}>Copy from {formatMonth(addMonthKey(month, -1), { short: true })}</Button>
+          <Button onClick={rollover}>
+            Copy from {formatMonth(addMonthKey(month, -1), { short: true })}
+          </Button>
           <Button variant="primary" onClick={openForm} disabled={available.length === 0}>
             Set a budget
           </Button>
@@ -137,26 +149,26 @@ export function BudgetsPage() {
                   {data.budgets.map((budget) => {
                     const status = caption(budget, data.monthElapsedPercent, money);
                     return (
-                    <li key={budget.id} className="budget">
-                      <div className="budget__bar">
-                        <ProgressBar
-                          label={budget.category.name}
-                          value={budget.spent}
-                          max={budget.amount}
-                          formatValue={money}
-                          caption={status.text}
-                          captionTone={status.tone}
-                        />
-                      </div>
-                      <button
-                        type="button"
-                        className="budget__remove"
-                        onClick={() => remove(budget)}
-                        aria-label={`Remove the ${budget.category.name} budget`}
-                      >
-                        Remove
-                      </button>
-                    </li>
+                      <li key={budget.id} className="budget">
+                        <div className="budget__bar">
+                          <ProgressBar
+                            label={budget.category.name}
+                            value={budget.spent}
+                            max={budget.amount}
+                            formatValue={money}
+                            caption={status.text}
+                            captionTone={status.tone}
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          className="budget__remove"
+                          onClick={() => remove(budget)}
+                          aria-label={`Remove the ${budget.category.name} budget`}
+                        >
+                          Remove
+                        </button>
+                      </li>
                     );
                   })}
                 </ul>
@@ -188,7 +200,11 @@ export function BudgetsPage() {
 
           <Field label="Category" required error={fieldErrors.categoryId}>
             {(props) => (
-              <Select {...props} value={form.categoryId} onChange={(e) => setForm({ ...form, categoryId: e.target.value })}>
+              <Select
+                {...props}
+                value={form.categoryId}
+                onChange={(e) => setForm({ ...form, categoryId: e.target.value })}
+              >
                 {available.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}

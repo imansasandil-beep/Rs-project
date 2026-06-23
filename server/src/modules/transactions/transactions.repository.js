@@ -188,8 +188,10 @@ export function updateTransaction(userId, id, input) {
 }
 
 export function deleteTransaction(userId, id) {
-  return getDb().prepare('DELETE FROM transactions WHERE id = ? AND user_id = ?').run(id, userId)
-    .changes > 0;
+  return (
+    getDb().prepare('DELETE FROM transactions WHERE id = ? AND user_id = ?').run(id, userId)
+      .changes > 0
+  );
 }
 
 export function deleteTransferLegs(userId, transferId) {

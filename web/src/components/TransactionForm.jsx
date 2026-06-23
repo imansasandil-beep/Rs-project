@@ -21,13 +21,27 @@ const BLANK = {
  * Create/edit dialog for a single transaction, plus a transfer mode that posts
  * to the paired-legs endpoint instead.
  */
-export function TransactionForm({ open, onClose, onSaved, transaction, accounts, categories, currency }) {
+export function TransactionForm({
+  open,
+  onClose,
+  onSaved,
+  transaction,
+  accounts,
+  categories,
+  currency,
+}) {
   const toast = useToast();
   const editing = Boolean(transaction);
 
   const [mode, setMode] = useState('single');
   const [form, setForm] = useState(BLANK);
-  const [transfer, setTransfer] = useState({ fromAccountId: '', toAccountId: '', amount: '', occurredOn: toDayKey(), note: '' });
+  const [transfer, setTransfer] = useState({
+    fromAccountId: '',
+    toAccountId: '',
+    amount: '',
+    occurredOn: toDayKey(),
+    note: '',
+  });
   const [fieldErrors, setFieldErrors] = useState({});
   const [error, setError] = useState(null);
   const [pending, setPending] = useState(false);
@@ -67,7 +81,10 @@ export function TransactionForm({ open, onClose, onSaved, transaction, accounts,
   // A category only belongs to one side of the ledger, so the picker follows
   // the direction rather than offering choices the server would reject.
   const selectableCategories = useMemo(
-    () => categories.filter((c) => !c.archivedAt && c.kind === (form.direction === 'in' ? 'income' : 'expense')),
+    () =>
+      categories.filter(
+        (c) => !c.archivedAt && c.kind === (form.direction === 'in' ? 'income' : 'expense')
+      ),
     [categories, form.direction]
   );
 
@@ -77,7 +94,8 @@ export function TransactionForm({ open, onClose, onSaved, transaction, accounts,
     }
   }, [selectableCategories, form.categoryId]);
 
-  const update = (field) => (event) => setForm((current) => ({ ...current, [field]: event.target.value }));
+  const update = (field) => (event) =>
+    setForm((current) => ({ ...current, [field]: event.target.value }));
   const updateTransfer = (field) => (event) =>
     setTransfer((current) => ({ ...current, [field]: event.target.value }));
 
@@ -218,7 +236,12 @@ export function TransactionForm({ open, onClose, onSaved, transaction, accounts,
 
               <Field label="Date" required error={fieldErrors.occurredOn}>
                 {(props) => (
-                  <Input {...props} type="date" value={form.occurredOn} onChange={update('occurredOn')} />
+                  <Input
+                    {...props}
+                    type="date"
+                    value={form.occurredOn}
+                    onChange={update('occurredOn')}
+                  />
                 )}
               </Field>
             </div>
@@ -236,7 +259,10 @@ export function TransactionForm({ open, onClose, onSaved, transaction, accounts,
               )}
             </Field>
 
-            <Field label={form.direction === 'in' ? 'Received from' : 'Paid to'} error={fieldErrors.payee}>
+            <Field
+              label={form.direction === 'in' ? 'Received from' : 'Paid to'}
+              error={fieldErrors.payee}
+            >
               {(props) => (
                 <Input
                   {...props}
@@ -248,7 +274,9 @@ export function TransactionForm({ open, onClose, onSaved, transaction, accounts,
             </Field>
 
             <Field label="Note" error={fieldErrors.note}>
-              {(props) => <Textarea {...props} value={form.note} onChange={update('note')} rows={2} />}
+              {(props) => (
+                <Textarea {...props} value={form.note} onChange={update('note')} rows={2} />
+              )}
             </Field>
           </>
         ) : (
@@ -268,7 +296,11 @@ export function TransactionForm({ open, onClose, onSaved, transaction, accounts,
             <div className="txn-form__row">
               <Field label="From" required error={fieldErrors.fromAccountId}>
                 {(props) => (
-                  <Select {...props} value={transfer.fromAccountId} onChange={updateTransfer('fromAccountId')}>
+                  <Select
+                    {...props}
+                    value={transfer.fromAccountId}
+                    onChange={updateTransfer('fromAccountId')}
+                  >
                     {openAccounts.map((account) => (
                       <option key={account.id} value={account.id}>
                         {account.name}
@@ -280,7 +312,11 @@ export function TransactionForm({ open, onClose, onSaved, transaction, accounts,
 
               <Field label="To" required error={fieldErrors.toAccountId}>
                 {(props) => (
-                  <Select {...props} value={transfer.toAccountId} onChange={updateTransfer('toAccountId')}>
+                  <Select
+                    {...props}
+                    value={transfer.toAccountId}
+                    onChange={updateTransfer('toAccountId')}
+                  >
                     {openAccounts.map((account) => (
                       <option key={account.id} value={account.id}>
                         {account.name}
@@ -293,12 +329,24 @@ export function TransactionForm({ open, onClose, onSaved, transaction, accounts,
 
             <Field label="Date" required error={fieldErrors.occurredOn}>
               {(props) => (
-                <Input {...props} type="date" value={transfer.occurredOn} onChange={updateTransfer('occurredOn')} />
+                <Input
+                  {...props}
+                  type="date"
+                  value={transfer.occurredOn}
+                  onChange={updateTransfer('occurredOn')}
+                />
               )}
             </Field>
 
             <Field label="Note" error={fieldErrors.note}>
-              {(props) => <Textarea {...props} value={transfer.note} onChange={updateTransfer('note')} rows={2} />}
+              {(props) => (
+                <Textarea
+                  {...props}
+                  value={transfer.note}
+                  onChange={updateTransfer('note')}
+                  rows={2}
+                />
+              )}
             </Field>
 
             <p className="txn-form__hint">

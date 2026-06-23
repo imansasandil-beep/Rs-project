@@ -15,7 +15,10 @@ export function SettingsPage() {
   const { theme, setTheme } = useTheme();
   const toast = useToast();
 
-  const [profile, setProfile] = useState({ name: user?.name ?? '', currency: user?.currency ?? 'LKR' });
+  const [profile, setProfile] = useState({
+    name: user?.name ?? '',
+    currency: user?.currency ?? 'LKR',
+  });
   const [profilePending, setProfilePending] = useState(false);
   const [profileErrors, setProfileErrors] = useState({});
 
@@ -100,7 +103,11 @@ export function SettingsPage() {
         <form className="settings__form" onSubmit={saveProfile} noValidate>
           <Field label="Name" error={profileErrors.name}>
             {(props) => (
-              <Input {...props} value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} />
+              <Input
+                {...props}
+                value={profile.name}
+                onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+              />
             )}
           </Field>
 
@@ -110,7 +117,11 @@ export function SettingsPage() {
 
           <Field label="Currency" error={profileErrors.currency}>
             {(props) => (
-              <Select {...props} value={profile.currency} onChange={(e) => setProfile({ ...profile, currency: e.target.value })}>
+              <Select
+                {...props}
+                value={profile.currency}
+                onChange={(e) => setProfile({ ...profile, currency: e.target.value })}
+              >
                 {CURRENCIES.map((code) => (
                   <option key={code} value={code}>
                     {code}
@@ -207,7 +218,10 @@ export function SettingsPage() {
           </div>
 
           {importResult && (
-            <div className={`settings__import ${importResult.ok ? 'is-ok' : 'is-error'}`} role="status">
+            <div
+              className={`settings__import ${importResult.ok ? 'is-ok' : 'is-error'}`}
+              role="status"
+            >
               {importResult.ok ? (
                 <p>
                   Imported {importResult.imported} of {importResult.total} rows
@@ -224,7 +238,9 @@ export function SettingsPage() {
                         Line {problem.line}: {problem.message}
                       </li>
                     ))}
-                    {importResult.errors.length > 8 && <li>…and {importResult.errors.length - 8} more</li>}
+                    {importResult.errors.length > 8 && (
+                      <li>…and {importResult.errors.length - 8} more</li>
+                    )}
                   </ul>
                 </>
               )}
