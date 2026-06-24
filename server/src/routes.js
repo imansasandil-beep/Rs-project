@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { healthRoutes } from './modules/health/health.routes.js';
 import { authRoutes } from './modules/auth/auth.routes.js';
 import { categoryRoutes } from './modules/categories/categories.routes.js';
 import { accountRoutes } from './modules/accounts/accounts.routes.js';
@@ -10,10 +11,7 @@ import { reportRoutes } from './modules/reports/reports.routes.js';
 export function createRouter() {
   const router = Router();
 
-  router.get('/health', (req, res) => {
-    res.json({ status: 'ok', uptime: Math.round(process.uptime()) });
-  });
-
+  router.use('/health', healthRoutes);
   router.use('/auth', authRoutes);
   router.use('/accounts', accountRoutes);
   router.use('/categories', categoryRoutes);
