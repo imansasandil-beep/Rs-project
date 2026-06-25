@@ -24,6 +24,7 @@ const BLANK_FILTERS = {
   direction: '',
   from: '',
   to: '',
+  uncategorized: '',
 };
 
 export function TransactionsPage() {
@@ -57,6 +58,7 @@ export function TransactionsPage() {
       accountId: filters.accountId || undefined,
       categoryId: filters.categoryId || undefined,
       direction: filters.direction || undefined,
+      uncategorized: filters.uncategorized || undefined,
       from: filters.from || undefined,
       to: filters.to || undefined,
       limit: PAGE_SIZE,
@@ -69,6 +71,7 @@ export function TransactionsPage() {
       filters.direction,
       filters.from,
       filters.to,
+      filters.uncategorized,
       page,
     ]
   );
@@ -212,6 +215,15 @@ export function TransactionsPage() {
             onChange={(e) => update('to', e.target.value)}
             aria-label="To date"
           />
+
+          <button
+            type="button"
+            className={`txns__chip ${filters.uncategorized ? 'is-active' : ''}`}
+            aria-pressed={Boolean(filters.uncategorized)}
+            onClick={() => update('uncategorized', filters.uncategorized ? '' : 'true')}
+          >
+            Uncategorized
+          </button>
 
           {activeFilterCount > 0 && (
             <Button

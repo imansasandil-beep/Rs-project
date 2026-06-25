@@ -53,10 +53,33 @@
 
 .txns__filters {
   display: grid;
-  grid-template-columns: minmax(180px, 2fr) repeat(3, minmax(130px, 1fr)) repeat(2, 150px) auto;
+  grid-template-columns: minmax(180px, 2fr) repeat(3, minmax(130px, 1fr)) repeat(2, 140px) auto auto;
   gap: var(--space-2);
   padding: var(--space-4) var(--space-5);
   border-bottom: 1px solid var(--border);
+}
+
+.txns__chip {
+  padding: 0 var(--space-3);
+  height: 38px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+
+.txns__chip:hover {
+  border-color: var(--text-subtle);
+  color: var(--text);
+}
+
+.txns__chip.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .txns__list {
