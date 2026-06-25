@@ -3,6 +3,7 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useTheme } from '../context/ThemeContext.jsx';
 import { ErrorBoundary } from './ErrorBoundary.jsx';
+import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
 import { IconButton } from './ui/Button.jsx';
 import './AppShell.css';
 
@@ -46,6 +47,13 @@ export function AppShell() {
   const { user, signOut } = useAuth();
   const { isDark, toggle } = useTheme();
   const location = useLocation();
+
+  const pageTitle =
+    NAV.find((item) =>
+      item.end ? location.pathname === item.to : location.pathname.startsWith(item.to)
+    )?.label ?? 'Settings';
+
+  useDocumentTitle(pageTitle);
 
   const initials = (user?.name ?? '?')
     .split(' ')
@@ -118,11 +126,7 @@ export function AppShell() {
             </svg>
           </IconButton>
 
-          <h1 className="shell__heading">
-            {NAV.find((item) =>
-              item.end ? location.pathname === item.to : location.pathname.startsWith(item.to)
-            )?.label ?? 'Settings'}
-          </h1>
+          <h1 className="shell__heading">{pageTitle}</h1>
 
           <div className="shell__header-actions">
             <IconButton
