@@ -4,6 +4,7 @@ import { useApi } from '../hooks/useApi.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useToast } from '../components/ui/Toast.jsx';
 import { useDebounced } from '../hooks/useDebounced.js';
+import { useHotkey } from '../hooks/useHotkey.js';
 import { Card } from '../components/ui/Card.jsx';
 import { Button } from '../components/ui/Button.jsx';
 import { Input, Select } from '../components/ui/Field.jsx';
@@ -35,6 +36,14 @@ export function TransactionsPage() {
   const [formOpen, setFormOpen] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [deletePending, setDeletePending] = useState(false);
+
+  function openNewTransaction() {
+    setEditing(null);
+    setFormOpen(true);
+  }
+
+  // "n" for a new transaction — this is the page people live on.
+  useHotkey('n', openNewTransaction, !formOpen && deleting === null);
 
   // Typing a search term should not fire a request per keystroke.
   const search = useDebounced(filters.search, 300);
@@ -138,13 +147,7 @@ export function TransactionsPage() {
 
         <div className="txns__header-actions">
           <Button onClick={exportCsv}>Export CSV</Button>
-          <Button
-            variant="primary"
-            onClick={() => {
-              setEditing(null);
-              setFormOpen(true);
-            }}
-          >
+          <Button variant="primary" onClick={openNewTransaction} title="Shortcut: n">
             Add transaction
           </Button>
         </div>
