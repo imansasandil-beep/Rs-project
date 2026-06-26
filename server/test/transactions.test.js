@@ -267,3 +267,27 @@ describe('transfers', () => {
     assert.equal(res.status, 409);
   });
 });
+
+describe('uncategorized filter', () => {
+  test('matches only rows with no category, and never a transfer leg', async () => {
+    const none = await client.get('/api/transactions?uncategorized=true');
+    assert.equal(none.body.total, 0, 'everything so far is either categorized or a transfer');
+
+    await client.post('/api/transactions', {
+      accountId: wallet.id,
+      direction: 'out',
+      amount: '99',
+      occurredOn: '2026-06-15',
+      payee: 'Unlabelled spend',
+    });
+
+    const found = await client.get('/api/transactions?uncategorized=true');
+    assert.equal(found.body.total, 1);
+    assert.equal(found.body.items[0].payee, 'Unlabelled spend');
+    assert.equal(found.body.items[0].categoryId, null);
+    assert.ok(
+      found.body.items.every((t) => !t.isTransfer),
+      'transfers have no category but are not uncategorized spending'
+    );
+  });
+});
