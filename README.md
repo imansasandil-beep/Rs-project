@@ -94,6 +94,8 @@ It is deterministic, so re-running it produces exactly the same ledger.
 | `npm test`                              | every workspace's test suite              |
 | `npm run db:migrate --workspace=server` | applies pending migrations                |
 | `npm run db:seed --workspace=server`    | replaces the demo account with fresh data |
+| `npm start`                             | builds the client, then serves everything |
+| `npm run format` / `format:check`       | Prettier write / verify                   |
 
 ## Deployment
 
@@ -101,9 +103,16 @@ Build the client and start the API — it serves `web/dist` itself, so it is one
 process on one port:
 
 ```bash
-npm run build
 NODE_ENV=production JWT_SECRET=$(node -e "console.log(require('crypto').randomBytes(48).toString('hex'))") \
-  npm start --workspace=server
+  npm start
+```
+
+Or with Docker, which keeps the database on a volume so a rebuild cannot take the
+ledger with it:
+
+```bash
+docker build -t rs .
+docker run -p 4000:4000 -v rs-data:/data -e JWT_SECRET=... rs
 ```
 
 `JWT_SECRET` is required in production and must be at least 32 characters; the
@@ -138,7 +147,7 @@ exists is itself information the caller is not entitled to.
 npm test
 ```
 
-93 tests over `node:test`, covering money conversion, calendar edge cases, CSV
+94 tests over `node:test`, covering money conversion, calendar edge cases, CSV
 quoting, auth (including that a wrong password and an unknown email are
 indistinguishable), cross-user isolation, transfer atomicity, and report
 aggregation. Each suite boots the real API on an ephemeral port against a
