@@ -49,8 +49,11 @@
 
 .stat__top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  /* Two lines' worth, so a label that wraps does not push its figure out of
+     line with the figures in the cards beside it. */
+  min-height: calc(var(--text-sm) * 1.5 * 2);
 }
 
 .stat__label {
